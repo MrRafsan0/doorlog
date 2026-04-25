@@ -4,11 +4,6 @@ A full-stack web application for logging and retrieving door codes for physical 
 
 **[Live Demo](https://rafisrough.xyz/doorlog)** — Public demo with a 50-entry cap.
 
----
-
-## Screenshots
-
-> _Add a screenshot of the main form and the search page here_
 
 ---
 
