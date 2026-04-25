@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DoorLog - Add Location</title>
+    <link rel="stylesheet" href="style.css?v=3">
+</head>
+<body>
+    <div class="doorlog-wrapper">
+        <div class="card">
+            <h2>Add Location</h2>
+            <div class="demo-badge">
+                🔓 Public Demo &nbsp;·&nbsp; <span id="entryCounter">Loading...</span>
+            </div>
+            <div class="success-msg" id="successMsg"></div>
+            <form id="locationForm">
+                <input type="text" id="address" placeholder="Address" required>
+                <input type="text" id="doorCode" placeholder="Code (e.g. 1234)" required>
+                <button type="submit" class="btn-save">Save Entry</button>
+            </form>
+            <a href="search.php" class="admin-link">🔍 Search entries &rarr;</a>
+        </div>
+    </div>
+    <script src="script.js"></script>
+    <script src="/global.js"></script>
+    <script>
+        fetch('api.php')
+            .then(r => r.json())
+            .then(data => {
+                const c = document.getElementById('entryCounter');
+                if (c && data.count !== undefined)
+                    c.innerText = data.count + '/50 entries · ' + data.remaining + ' slots remaining';
+            }).catch(() => {});
+    </script>
+</body>
+</html>

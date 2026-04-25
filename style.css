@@ -1,0 +1,302 @@
+/* ========================
+   VARIABLES & GLOBAL
+   ======================== */
+:root {
+    --color-background: #fff;
+    --color-text: #2c3e50;
+    --color-primary: #e74c3c;
+    --color-secondary: #3498db;
+    --color-highlight-bg: #f2f5f7;
+    --font-family-sans-serif: "Nunito", system-ui, -apple-system, sans-serif;
+    --navbar-height: 80px;
+    --navbar-padding: 1.5rem;
+    --container-width: 1140px;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@500;700;800&family=Anonymous+Pro:wght@400;700&display=swap');
+
+*, *::before, *::after { box-sizing: border-box; }
+
+body {
+    margin: 0; 
+    font-family: var(--font-family-sans-serif);
+    color: var(--color-text); 
+    background-color: var(--color-background);
+    background-image: 
+        conic-gradient(from 90deg at 1px 1px, transparent 25%, gainsboro 0%),
+        linear-gradient(45deg, transparent calc(50% - 0.5px), gainsboro 0 calc(50% + 0.5px), transparent 0),
+        linear-gradient(-45deg, transparent calc(50% - 0.5px), gainsboro 0 calc(50% + 0.5px), transparent 0);
+    background-position: -0.5px -0.5px, 0 0, 0 0;
+    background-size: 1em 1em, 2em 2em, 2em 2em;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+ul { list-style: none; margin: 0; padding: 0; }
+a { text-decoration: none; color: inherit; }
+
+/* ========================
+   NAVBAR STYLES
+   ======================== */
+.navbar {
+    height: var(--navbar-height); 
+    display: flex; align-items: center;
+    background-color: var(--color-background);
+    border-bottom: 2px solid var(--color-highlight-bg);
+    position: sticky; top: 0; z-index: 1000;
+    width: 100%;
+}
+
+.navbar__container {
+    display: flex; justify-content: space-between; align-items: center;
+    width: 100%; max-width: var(--container-width);
+    margin: 0 auto; padding: 0 var(--navbar-padding);
+}
+.navbar__brand { font-size: 1.75rem; font-weight: 700; color: var(--color-primary); }
+.navbar__toggle { display: block; border: none; background: transparent; cursor: pointer; z-index: 1001; }
+.navbar__toggle .bar { display: block; width: 25px; height: 3px; margin: 5px auto; background-color: var(--color-text); transition: 0.3s; }
+.navbar__menu { display: none; flex-direction: column; width: 100%; position: absolute; top: var(--navbar-height); left: 0; background: #fff; border-bottom: 2px solid #eee; }
+.navbar__menu.is-active { display: flex; }
+.navbar__item { text-align: center; }
+.navbar__link { display: block; padding: 1.5rem; font-weight: 700; }
+
+@media (min-width: 768px) {
+    .navbar__toggle { display: none; }
+    .navbar__menu { display: flex; flex-direction: row; position: static; width: auto; background: none; border: none; }
+    .navbar__list { display: flex; align-items: center; gap: 0.5rem; }
+    .navbar__link { padding: 0.5rem 1rem; position: relative; }
+    .navbar__link:not(.navbar__link--cta)::after {
+        content: ''; position: absolute; bottom: 0; left: 50%; width: 0; height: 3px; background-color: var(--color-secondary); transition: 0.3s ease; transform: translateX(-50%);
+    }
+    .navbar__link:not(.navbar__link--cta):hover::after { width: 100%; }
+    .navbar__item--cta { margin-left: 1rem; }
+    .navbar__link--cta {
+        padding: 0.75rem 1.5rem; border-radius: 50px; border: 2px solid var(--color-secondary); position: relative; overflow: hidden; z-index: 1; font-weight: 800; color: transparent; -webkit-text-stroke: 1px var(--color-secondary); transition: all 0.3s ease;
+    }
+    .navbar__link--cta::before { content: ""; width: 100%; height: 0%; position: absolute; left: 0; top: 0; background-color: var(--color-secondary); z-index: -1; transition: all 0.4s cubic-bezier(0.64, 0.01, 0.07, 1.65); }
+    .navbar__link--cta:hover { color: white; -webkit-text-stroke: 0px; border-color: var(--color-secondary); }
+    .navbar__link--cta:hover::before { height: 100%; }
+}
+
+/* ========================
+   DOORLOG SPECIFIC STYLES
+   ======================== */
+.doorlog-wrapper {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+}
+
+.card {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    padding: 2.5rem;
+    border-radius: 20px;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.08);
+    width: 100%;
+    max-width: 480px;
+    border: 1px solid rgba(0,0,0,0.05);
+    position: relative;
+    overflow: hidden;
+}
+
+.card::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 5px;
+    background: linear-gradient(90deg, var(--color-secondary), var(--color-primary));
+}
+
+h2 { margin-top: 0; font-family: 'Anonymous Pro', monospace; font-weight: 700; font-size: 2rem; color: var(--color-text); text-align: center; margin-bottom: 1.5rem;}
+
+input {
+    width: 100%;
+    padding: 14px 16px;
+    margin: 10px 0 20px 0;
+    border: 2px solid var(--color-highlight-bg);
+    border-radius: 10px;
+    font-size: 1rem;
+    font-family: inherit;
+    transition: all 0.3s ease;
+    background-color: #fafbfc;
+}
+
+input:focus {
+    outline: none;
+    border-color: var(--color-secondary);
+    background-color: #fff;
+    box-shadow: 0 0 0 4px rgba(52, 152, 219, 0.1);
+}
+
+button {
+    width: 100%;
+    padding: 14px;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    font-weight: 800;
+    font-size: 1.1rem;
+    transition: all 0.3s ease;
+    font-family: inherit;
+}
+
+.btn-save, .btn-blue {
+    background-color: var(--color-text);
+    color: white;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.btn-save:hover, .btn-blue:hover {
+    background-color: var(--color-secondary);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(52, 152, 219, 0.3);
+}
+
+.btn-outline {
+    background-color: transparent;
+    border: 2px solid var(--color-text);
+    color: var(--color-text);
+    padding: 10px 20px;
+    width: auto;
+    font-size: 0.9rem;
+}
+
+.btn-outline:hover {
+    background-color: var(--color-text);
+    color: white;
+}
+
+.btn-logout {
+    background-color: var(--color-primary);
+    color: white;
+    padding: 10px 20px;
+    width: auto;
+    font-size: 0.9rem;
+    box-shadow: 0 4px 10px rgba(231, 76, 60, 0.2);
+}
+
+.btn-logout:hover {
+    background-color: #c0392b;
+    transform: translateY(-2px);
+}
+
+.success-msg {
+    color: #065f46;
+    background-color: #dcfce7;
+    padding: 12px;
+    border-radius: 8px;
+    display: none;
+    margin-bottom: 1rem;
+    border: 1px solid #bbf7d0;
+    text-align: center;
+    font-weight: 700;
+}
+
+.error-text { color: var(--color-primary); margin-bottom: 15px; font-weight: 700; text-align: center; }
+
+.admin-link {
+    display: block;
+    margin-top: 1.5rem;
+    text-align: center;
+    color: var(--color-secondary);
+    text-decoration: none;
+    font-weight: 700;
+    transition: 0.2s ease;
+}
+
+.admin-link:hover {
+    color: var(--color-text);
+    transform: translateX(5px);
+}
+
+.header-flex {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.header-flex h2 { margin: 0; }
+
+/* ========================
+   LOG ENTRY WITH DELETE
+   ======================== */
+.log-entry {
+    background: #fff;
+    padding: 18px 20px;
+    border-radius: 12px;
+    border: 1px solid #eee;
+    border-left: 5px solid var(--color-secondary);
+    transition: transform 0.2s;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+    /* Changed to flex so info and button sit side by side */
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+}
+
+.log-entry:hover { transform: translateX(5px); }
+
+.log-entry-info {
+    flex: 1;
+    line-height: 1.7;
+}
+
+/* Delete button inside each log entry */
+.btn-delete {
+    width: auto;
+    padding: 8px 14px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    background-color: #fff0f0;
+    color: var(--color-primary);
+    border: 2px solid #ffd0d0;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+.btn-delete:hover {
+    background-color: var(--color-primary);
+    color: white;
+    border-color: var(--color-primary);
+    transform: scale(1.05);
+}
+
+/* Mobile: stack info and button vertically */
+@media (max-width: 600px) {
+    .log-entry {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .btn-delete {
+        width: 100%;
+        text-align: center;
+    }
+}
+
+/* ========================
+   DEMO BADGE
+   ======================== */
+.demo-badge {
+    display: inline-block;
+    background-color: #f0fdf4;
+    color: #166534;
+    border: 1px solid #bbf7d0;
+    border-radius: 50px;
+    padding: 6px 16px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    text-align: center;
+    width: 100%;
+}
