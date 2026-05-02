@@ -149,11 +149,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 entry.className = 'log-entry';
                 entry.innerHTML = `
                     <div class="log-entry-info">
-                        <strong>Address:</strong> ${item.address}<br>
-                        <strong>Door Code:</strong> ${item.door_code}
+                        <strong>Address:</strong> <span class="entry-address"></span><br>
+                        <strong>Door Code:</strong> <span class="entry-code"></span>
                     </div>
                     ${isAdmin ? `<button class="btn-delete" title="Delete">🗑 Delete</button>` : ''}
                 `;
+                entry.querySelector('.entry-address').textContent = item.address;
+                entry.querySelector('.entry-code').textContent = item.door_code;
                 if (isAdmin) {
                     entry.querySelector('.btn-delete').addEventListener('click', () => {
                         handleDelete(item.id, item.address, entry);

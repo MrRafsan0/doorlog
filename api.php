@@ -19,8 +19,8 @@ try {
             exit;
         }
 
-        $address   = trim($data->address);
-        $door_code = trim($data->door_code);
+        $address   = htmlspecialchars(trim($data->address), ENT_QUOTES, 'UTF-8');
+        $door_code = htmlspecialchars(trim($data->door_code), ENT_QUOTES, 'UTF-8');
         $action    = isset($data->action) ? $data->action : 'check';
 
         if ($action === 'update') {
@@ -107,8 +107,13 @@ try {
 
         $locations = [];
         while ($row = $result->fetch_assoc()) {
-            $locations[] = $row;
+            $locations[] = [
+                'id'        => $row['id'],
+                'address'   => htmlspecialchars($row['address'], ENT_QUOTES, 'UTF-8'),
+                'door_code' => htmlspecialchars($row['door_code'], ENT_QUOTES, 'UTF-8')
+            ];
         }
+
 
         echo json_encode([
             "entries"   => $locations,
